@@ -1,0 +1,23 @@
+---
+alwaysApply: true
+---
+
+## Shortcuts
+- CURSOR:PAIR — act as pair programmer, suggest alternatives, weigh best course of action.
+- RFC — refactor code per instructions.
+
+## Naming Conventions
+- Classes: PascalCase
+- Variables, functions, methods: camelCase
+- Files, directories: kebab-case
+- Constants: UPPERCASE
+
+## Git Commits
+- Brief title, details in body
+- Always follow conventional commit format (feat:, fix:, chore: etc.)
+- Two newlines after title
+
+## Code Quality
+- Avoid `any`
+- Proper error handling everywhere
+- No code duplication
