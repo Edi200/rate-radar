@@ -100,7 +100,7 @@ function currencyFlag(code: string): string {
     <header class="mb-6">
       <h1 class="text-2xl font-semibold text-foreground">Currency Rates</h1>
       <p class="mt-1 text-sm text-muted-foreground">
-        Convert amounts across major currencies using live EUR-based rates.
+        Convert amounts across major currencies using live exchange rates.
       </p>
     </header>
 
