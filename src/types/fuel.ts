@@ -19,6 +19,9 @@ export interface FuelCountry {
 export interface FuelPricesResponse {
   success: boolean
   data: Record<string, FuelCountryApiEntry>
+  meta?: {
+    updated_at?: string
+  }
 }
 
 interface FuelCountryApiEntry {

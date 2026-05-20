@@ -53,7 +53,7 @@ import {
 const BASKET_COMPARE_BASE = 'https://openvan.camp/api/vanbasket/compare'
 
 const basketStore = useBasketStore()
-const { countryList, isLoading, hasError } = storeToRefs(basketStore)
+const { countryList, updatedAt, isLoading, hasError } = storeToRefs(basketStore)
 
 const searchQuery = ref('')
 const sortAscending = ref(true)
@@ -78,6 +78,20 @@ const filteredCountries = computed(() => {
   return [...filtered].sort((a, b) =>
     compareBasketIndex(a.index, b.index, sortAscending.value),
   )
+})
+
+const formattedUpdatedAt = computed(() => {
+  if (!updatedAt.value) {
+    return ''
+  }
+  const date = new Date(updatedAt.value)
+  if (Number.isNaN(date.getTime())) {
+    return updatedAt.value
+  }
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  }).format(date)
 })
 
 const isEmptyFilter = computed(
@@ -219,6 +233,13 @@ function selectCompareTo(code: string): void {
         Relative food cost by country. World average index = 100.
       </p>
     </header>
+
+    <p
+      v-if="formattedUpdatedAt && !isLoading && !hasError"
+      class="mb-4 text-sm text-muted-foreground"
+    >
+      Prices updated {{ formattedUpdatedAt }}
+    </p>
 
     <section
       class="mb-8 rounded-lg border p-4 sm:p-6"

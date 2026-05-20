@@ -8,6 +8,9 @@ export interface BasketCountry {
 export interface BasketCountriesResponse {
   success: boolean
   data: Record<string, BasketCountryApiEntry>
+  meta?: {
+    updated_at?: string
+  }
 }
 
 interface BasketCountryApiEntry {

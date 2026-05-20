@@ -31,7 +31,7 @@ import { useFuelStore } from '../stores/fuel'
 import type { FuelCountry } from '../types/fuel'
 
 const fuelStore = useFuelStore()
-const { countryList, isLoading, hasError } = storeToRefs(fuelStore)
+const { countryList, updatedAt, isLoading, hasError } = storeToRefs(fuelStore)
 
 const selectedRegion = ref<FuelRegionFilter>('all')
 const searchQuery = ref('')
@@ -47,6 +47,20 @@ const filteredCountries = computed(() => {
     }
     return true
   })
+})
+
+const formattedUpdatedAt = computed(() => {
+  if (!updatedAt.value) {
+    return ''
+  }
+  const date = new Date(updatedAt.value)
+  if (Number.isNaN(date.getTime())) {
+    return updatedAt.value
+  }
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  }).format(date)
 })
 
 const isEmptyFilter = computed(
@@ -129,6 +143,13 @@ function priceWithCurrency(country: FuelCountry, value: number | null): string {
         />
       </div>
     </div>
+
+    <p
+      v-if="formattedUpdatedAt && !isLoading && !hasError"
+      class="mb-4 text-sm text-muted-foreground"
+    >
+      Prices updated {{ formattedUpdatedAt }}
+    </p>
 
     <div
       v-if="isLoading"

@@ -11,6 +11,7 @@ const FUEL_PRICES_URL = 'https://openvan.camp/api/fuel/prices'
 
 export const useFuelStore = defineStore('fuel', () => {
   const countries = ref<Record<string, FuelCountry>>({})
+  const updatedAt = ref('')
   const isLoading = ref(false)
   const hasError = ref(false)
 
@@ -49,6 +50,7 @@ export const useFuelStore = defineStore('fuel', () => {
         mapped[country.country_code] = country
       }
       countries.value = mapped
+      updatedAt.value = body.meta?.updated_at ?? ''
     } catch {
       hasError.value = true
     } finally {
@@ -58,6 +60,7 @@ export const useFuelStore = defineStore('fuel', () => {
 
   return {
     countries,
+    updatedAt,
     isLoading,
     hasError,
     countryList,

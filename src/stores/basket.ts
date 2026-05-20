@@ -11,6 +11,7 @@ const BASKET_COUNTRIES_URL = 'https://openvan.camp/api/vanbasket/countries'
 
 export const useBasketStore = defineStore('basket', () => {
   const countries = ref<BasketCountry[]>([])
+  const updatedAt = ref('')
   const isLoading = ref(false)
   const hasError = ref(false)
 
@@ -42,6 +43,7 @@ export const useBasketStore = defineStore('basket', () => {
       }
 
       countries.value = Object.values(body.data).map(mapBasketCountryEntry)
+      updatedAt.value = body.meta?.updated_at ?? ''
     } catch {
       hasError.value = true
     } finally {
@@ -51,6 +53,7 @@ export const useBasketStore = defineStore('basket', () => {
 
   return {
     countries,
+    updatedAt,
     isLoading,
     hasError,
     countryList,
